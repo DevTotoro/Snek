@@ -9,10 +9,18 @@ Application::Application()
     s_Instance = this;
 
     InitSDL();
+
+    m_Window = std::make_unique<Window>("Snek", GRID_WIDTH, GRID_HEIGHT);
+
+    m_Renderer = std::make_unique<Renderer>(*m_Window);
 }
 
 Application::~Application()
 {
+    m_Renderer = nullptr;
+
+    m_Window = nullptr;
+
     QuitSDL();
 }
 
