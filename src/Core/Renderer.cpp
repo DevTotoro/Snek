@@ -10,13 +10,13 @@ Renderer::Renderer(Window& window)
     m_Renderer = SDL_CreateRenderer(&window.GetWindow(), -1, SDL_RENDERER_ACCELERATED);
     ASSERT(m_Renderer, SDL_GetError());
 
-    LOG("Renderer created");
+    CORE_LOG("Renderer created");
 }
 
 Renderer::~Renderer()
 {
     SDL_DestroyRenderer(m_Renderer);
-    LOG("Renderer destroyed");
+    CORE_LOG("Renderer destroyed");
 }
 
 void Renderer::DrawBackground()

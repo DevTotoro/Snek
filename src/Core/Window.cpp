@@ -12,12 +12,12 @@ Window::Window(const std::string& title, int width, int height)
     ASSERT(m_Window, SDL_GetError());
 
     std::string message = "Window created: " + title + " (" + std::to_string(width) + " x " + std::to_string(height) + ")";
-    LOG(message);
+    CORE_LOG(message);
 }
 
 Window::~Window()
 {
     SDL_DestroyWindow(m_Window);
 
-    LOG("Window destroyed");
+    CORE_LOG("Window destroyed");
 }

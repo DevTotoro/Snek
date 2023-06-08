@@ -5,7 +5,7 @@
 #ifdef NDEBUG
 #define ASSERT(condition, message) if (!condition) throw std::runtime_error(message);
 #else
-#define ASSERT(condition, message) if (!condition) { std::cerr << "Assertion failed: " << message << std::endl; __debugbreak(); }
+#define ASSERT(condition, message) if (!condition) { std::cerr << "[ASSERTION]: " << message << std::endl; __debugbreak(); }
 #endif // NDEBUG
 
-#define LOG(message) std::cout << "- " << message << std::endl;
+#define CORE_LOG(message) std::cout << "[CORE]: " << message << std::endl;

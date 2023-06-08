@@ -1,6 +1,5 @@
 #include "Application.h"
 #include "../Core.h"
-#include "Rectangle.h"
 
 Application* Application::s_Instance = nullptr;
 
@@ -42,24 +41,18 @@ void Application::InitSDL()
     int sdlResult = SDL_Init(SDL_INIT_VIDEO);
     ASSERT(sdlResult == 0, SDL_GetError());
 
-    LOG("SDL Initialized");
+    CORE_LOG("SDL Initialized");
 }
 
 void Application::QuitSDL()
 {
     SDL_Quit();
-    LOG("SDL Quit");
+    CORE_LOG("SDL Quit");
 }
 
 void Application::Render()
 {
     m_Renderer->DrawBackground();
-
-    Rectangle rect(10, 10, CELL_SIZE, CELL_SIZE);
-    rect.fillColor = Color::RED;
-    rect.borderColor = Color::BLACK;
-
-    m_Renderer->DrawRectangle(rect);
 
     m_Renderer->Render();
 }
