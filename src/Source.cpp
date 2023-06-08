@@ -1,8 +1,19 @@
+#include <memory>
 #include <iostream>
+#include "Core/Application.h"
 
-int main()
+int main(int argc, char** args)
 {
-    std::cout << "Hello, World!" << std::endl;
+    try
+    {
+        auto app = std::make_unique<Application>();
+        app->Run();
+    }
+    catch (const std::exception& e)
+    {
+        std::cerr << e.what() << std::endl;
+        return EXIT_FAILURE;
+    }
 
-    return 0;
+    return EXIT_SUCCESS;
 }
