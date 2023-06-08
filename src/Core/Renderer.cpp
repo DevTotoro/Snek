@@ -18,3 +18,20 @@ Renderer::~Renderer()
     SDL_DestroyRenderer(m_Renderer);
     LOG("Renderer destroyed");
 }
+
+void Renderer::DrawBackground()
+{
+    SDL_SetRenderDrawColor(
+        m_Renderer,
+        backgroundColor.r,
+        backgroundColor.g,
+        backgroundColor.b,
+        backgroundColor.a
+    );
+    SDL_RenderClear(m_Renderer);
+}
+
+void Renderer::Render()
+{
+    SDL_RenderPresent(m_Renderer);
+}

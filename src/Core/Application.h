@@ -30,4 +30,6 @@ private:
 private:
     static void InitSDL();
     static void QuitSDL();
+
+    void Render();
 };

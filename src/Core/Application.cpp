@@ -3,6 +3,8 @@
 
 Application* Application::s_Instance = nullptr;
 
+// ==================== PUBLIC ==================== //
+
 Application::Application()
 {
     ASSERT(!s_Instance, "Application already exists!");
@@ -13,6 +15,7 @@ Application::Application()
     m_Window = std::make_unique<Window>("Snek", GRID_WIDTH, GRID_HEIGHT);
 
     m_Renderer = std::make_unique<Renderer>(*m_Window);
+    m_Renderer->backgroundColor = Color::WHITE;
 }
 
 Application::~Application()
@@ -26,8 +29,12 @@ Application::~Application()
 
 void Application::Run()
 {
+    Render();
+
     SDL_Delay(3000);
 }
+
+// ==================== PRIVATE ==================== //
 
 void Application::InitSDL()
 {
@@ -41,4 +48,11 @@ void Application::QuitSDL()
 {
     SDL_Quit();
     LOG("SDL Quit");
+}
+
+void Application::Render()
+{
+    m_Renderer->DrawBackground();
+
+    m_Renderer->Render();
 }
