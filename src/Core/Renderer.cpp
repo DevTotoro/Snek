@@ -31,6 +31,27 @@ void Renderer::DrawBackground()
     SDL_RenderClear(m_Renderer);
 }
 
+void Renderer::DrawRectangle(Rectangle& rectangle)
+{
+    SDL_SetRenderDrawColor(
+        m_Renderer,
+        rectangle.fillColor.r,
+        rectangle.fillColor.g,
+        rectangle.fillColor.b,
+        rectangle.fillColor.a
+    );
+    SDL_RenderFillRect(m_Renderer, &rectangle.GetRect());
+
+    SDL_SetRenderDrawColor(
+        m_Renderer,
+        rectangle.borderColor.r,
+        rectangle.borderColor.g,
+        rectangle.borderColor.b,
+        rectangle.borderColor.a
+    );
+    SDL_RenderDrawRect(m_Renderer, &rectangle.GetRect());
+}
+
 void Renderer::Render()
 {
     SDL_RenderPresent(m_Renderer);

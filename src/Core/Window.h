@@ -5,7 +5,7 @@
 class Window
 {
 public:
-    Window(const std::string& title, uint32_t width, uint32_t height);
+    Window(const std::string& title, int width, int height);
     ~Window();
 
     inline SDL_Window& GetWindow() const { return *m_Window; }

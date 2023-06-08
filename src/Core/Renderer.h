@@ -2,6 +2,7 @@
 #include <SDL.h>
 #include "Window.h"
 #include "Color.h"
+#include "Rectangle.h"
 
 class Renderer
 {
@@ -10,6 +11,7 @@ public:
     ~Renderer();
 
     void DrawBackground();
+    void DrawRectangle(Rectangle& rectangle);
 
     void Render();
 

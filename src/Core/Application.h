@@ -4,13 +4,13 @@
 #include "Window.h"
 #include "Renderer.h"
 
-constexpr uint32_t CELL_SIZE = 32;
+constexpr int CELL_SIZE = 32;
 
-constexpr uint32_t CELL_COUNT_X = 20;
-constexpr uint32_t CELL_COUNT_Y = 20;
+constexpr int CELL_COUNT_X = 20;
+constexpr int CELL_COUNT_Y = 20;
 
-constexpr uint32_t GRID_WIDTH = CELL_SIZE * CELL_COUNT_X;
-constexpr uint32_t GRID_HEIGHT = CELL_SIZE * CELL_COUNT_Y;
+constexpr int GRID_WIDTH = CELL_SIZE * CELL_COUNT_X;
+constexpr int GRID_HEIGHT = CELL_SIZE * CELL_COUNT_Y;
 
 class Application
 {

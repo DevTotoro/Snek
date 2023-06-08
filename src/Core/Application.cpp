@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "../Core.h"
+#include "Rectangle.h"
 
 Application* Application::s_Instance = nullptr;
 
@@ -53,6 +54,12 @@ void Application::QuitSDL()
 void Application::Render()
 {
     m_Renderer->DrawBackground();
+
+    Rectangle rect(10, 10, CELL_SIZE, CELL_SIZE);
+    rect.fillColor = Color::RED;
+    rect.borderColor = Color::BLACK;
+
+    m_Renderer->DrawRectangle(rect);
 
     m_Renderer->Render();
 }

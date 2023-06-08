@@ -1,7 +1,7 @@
 #include "Window.h"
 #include "../Core.h"
 
-Window::Window(const std::string& title, uint32_t width, uint32_t height)
+Window::Window(const std::string& title, int width, int height)
 {
     m_Window = SDL_CreateWindow(
         title.c_str(),
