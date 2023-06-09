@@ -3,14 +3,9 @@
 #include <SDL.h>
 #include "Window.h"
 #include "Renderer.h"
+#include "../Game/Game.h"
 
 constexpr int CELL_SIZE = 32;
-
-constexpr int CELL_COUNT_X = 20;
-constexpr int CELL_COUNT_Y = 20;
-
-constexpr int GRID_WIDTH = CELL_SIZE * CELL_COUNT_X;
-constexpr int GRID_HEIGHT = CELL_SIZE * CELL_COUNT_Y;
 
 class Application
 {
@@ -24,8 +19,9 @@ private:
     static Application* s_Instance;
 
     std::unique_ptr<Window> m_Window = nullptr;
+    std::shared_ptr<Renderer> m_Renderer = nullptr;
 
-    std::unique_ptr<Renderer> m_Renderer = nullptr;
+    std::unique_ptr<Game> m_Game = nullptr;
 
 private:
     static void InitSDL();

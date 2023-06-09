@@ -12,15 +12,23 @@ Application::Application()
 
     InitSDL();
 
-    m_Window = std::make_unique<Window>("Snek", GRID_WIDTH, GRID_HEIGHT);
+    m_Window = std::make_unique<Window>(
+        "Snek",
+        Game::BoardWidth * CELL_SIZE,
+        Game::BoardHeight * CELL_SIZE
+    );
 
-    m_Renderer = std::make_unique<Renderer>(*m_Window);
+    m_Renderer = std::make_shared<Renderer>(*m_Window);
     m_Renderer->backgroundColor = Color::WHITE;
+
+    m_Game = std::make_unique<Game>(std::shared_ptr<Renderer>(m_Renderer));
 }
 
 Application::~Application()
 {
-    m_Renderer = nullptr;
+    m_Game = nullptr;
+
+    m_Renderer.reset();
 
     m_Window = nullptr;
 
