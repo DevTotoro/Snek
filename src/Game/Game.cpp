@@ -32,6 +32,11 @@ Game::~Game()
     m_Renderer.reset();
 }
 
+void Game::Update()
+{
+    MoveSnake();
+}
+
 void Game::Draw() const
 {
     for (const auto& row : m_Board)
@@ -78,6 +83,7 @@ void Game::SpawnFood()
         x = rand() % BOARD_WIDTH;
         y = rand() % BOARD_HEIGHT;
 
+        // Check collision with snake head
         valid = true;
         if (m_SnakeHead->CheckCollision(x, y))
         {
@@ -85,6 +91,7 @@ void Game::SpawnFood()
             continue;
         }
 
+        // Check collision with snake tail
         for (const auto& cell : m_SnakeTail)
             if (cell->CheckCollision(x, y))
             {
@@ -97,4 +104,55 @@ void Game::SpawnFood()
 
     m_Food->SetFillColor(Color::MAGENTA);
     m_Food->SetBorderColor(Color::BLACK);
+}
+
+void Game::MoveSnake()
+{
+    int headX = m_SnakeHead->GetX();
+    int headY = m_SnakeHead->GetY();
+
+    // Move tail
+    for (int i = m_SnakeTail.size() - 1; i > 0; i--)
+    {
+        // If it's the last tail cell, reset it
+        // Otherwise, move it to the previous cell
+        if (i == m_SnakeTail.size() - 1)
+        {
+            m_SnakeTail[i]->SetFillColor(s_BoardColor);
+            m_SnakeTail[i]->SetBorderColor(s_BoardColor);
+        }
+        else
+        {
+            m_SnakeTail[i]->SetFillColor(Color::WHITE);
+            m_SnakeTail[i]->SetBorderColor(Color::BLACK);
+        }
+
+        m_SnakeTail[i] = m_SnakeTail[i - 1];
+    }
+
+    m_SnakeTail[0] = m_SnakeHead;
+    m_SnakeTail[0]->SetFillColor(Color::WHITE);
+
+    // Move head
+    switch (m_SnakeDirection)
+    {
+    case Direction::UP:
+        headY--;
+        break;
+    case Direction::DOWN:
+        headY++;
+        break;
+    case Direction::LEFT:
+        headX--;
+        break;
+    case Direction::RIGHT:
+        headX++;
+        break;
+    default:
+        break;
+    }
+
+    m_SnakeHead = m_Board[headY][headX];
+    m_SnakeHead->SetFillColor(Color::GREEN);
+    m_SnakeHead->SetBorderColor(Color::BLACK);
 }

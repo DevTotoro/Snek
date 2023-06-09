@@ -36,6 +36,7 @@ Application::~Application()
 
 void Application::Run()
 {
+    Update();
     Render();
 
     SDL_Delay(3000);
@@ -55,6 +56,11 @@ void Application::QuitSDL()
 {
     SDL_Quit();
     CORE_LOG("SDL Quit");
+}
+
+void Application::Update()
+{
+    m_Game->Update();
 }
 
 void Application::Render()

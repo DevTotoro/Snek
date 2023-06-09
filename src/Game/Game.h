@@ -18,11 +18,20 @@ public:
     Game(std::shared_ptr<Renderer> renderer);
     ~Game();
 
+    void Update();
     void Draw() const;
 
 private:
     using CellPtr = std::shared_ptr<Cell>;
     using CellRow = std::vector<CellPtr>;
+
+    enum Direction
+    {
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT
+    };
 
 private:
     std::shared_ptr<Renderer> m_Renderer = nullptr;
@@ -32,6 +41,7 @@ private:
 
     CellPtr m_SnakeHead = nullptr;
     std::vector<CellPtr> m_SnakeTail;
+    Direction m_SnakeDirection = Direction::RIGHT;
 
     CellPtr m_Food = nullptr;
 
@@ -39,4 +49,6 @@ private:
     void ResetBoard();
     void ResetSnake();
     void SpawnFood();
+
+    void MoveSnake();
 };
