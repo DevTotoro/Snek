@@ -28,9 +28,15 @@ private:
     std::shared_ptr<Renderer> m_Renderer = nullptr;
 
     std::vector<CellRow> m_Board;
-
     static Color s_BoardColor;
+
+    CellPtr m_SnakeHead = nullptr;
+    std::vector<CellPtr> m_SnakeTail;
+
+    CellPtr m_Food = nullptr;
 
 private:
     void ResetBoard();
+    void ResetSnake();
+    void SpawnFood();
 };

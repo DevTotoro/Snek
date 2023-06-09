@@ -19,6 +19,10 @@ Game::Game(std::shared_ptr<Renderer> renderer)
     }
 
     ResetBoard();
+
+    ResetSnake();
+
+    SpawnFood();
 }
 
 Game::~Game()
@@ -45,4 +49,52 @@ void Game::ResetBoard()
             cell->SetFillColor(s_BoardColor);
             cell->SetBorderColor(s_BoardColor);
         }
+}
+
+void Game::ResetSnake()
+{
+    m_SnakeHead = m_Board[BOARD_HEIGHT / 2][BOARD_WIDTH / 2];
+    m_SnakeHead->SetFillColor(Color::GREEN);
+    m_SnakeHead->SetBorderColor(Color::BLACK);
+
+    m_SnakeTail.clear();
+    m_SnakeTail.push_back(m_Board[BOARD_HEIGHT / 2][BOARD_WIDTH / 2 - 1]);
+    m_SnakeTail.push_back(m_Board[BOARD_HEIGHT / 2][BOARD_WIDTH / 2 - 2]);
+
+    for (const auto& cell : m_SnakeTail)
+    {
+        cell->SetFillColor(Color::WHITE);
+        cell->SetBorderColor(Color::BLACK);
+    }
+}
+
+void Game::SpawnFood()
+{
+    int x = 0, y = 0;
+    bool valid = false;
+
+    do
+    {
+        x = rand() % BOARD_WIDTH;
+        y = rand() % BOARD_HEIGHT;
+
+        valid = true;
+        if (m_SnakeHead->CheckCollision(x, y))
+        {
+            valid = false;
+            continue;
+        }
+
+        for (const auto& cell : m_SnakeTail)
+            if (cell->CheckCollision(x, y))
+            {
+                valid = false;
+                break;
+            }
+    } while (!valid);
+
+    m_Food = m_Board[y][x];
+
+    m_Food->SetFillColor(Color::MAGENTA);
+    m_Food->SetBorderColor(Color::BLACK);
 }

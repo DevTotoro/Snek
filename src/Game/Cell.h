@@ -21,6 +21,9 @@ public:
     inline void SetFillColor(const Color& color) { m_Rectangle.fillColor = color; }
     inline void SetBorderColor(const Color& color) { m_Rectangle.borderColor = color; }
 
+    inline bool CheckCollision(int x, int y) const { return x == m_X && y == m_Y; }
+    inline bool CheckCollision(const Cell& cell) const { return CheckCollision(cell.m_X, cell.m_Y); }
+
 private:
     Rectangle m_Rectangle;
 
