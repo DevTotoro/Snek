@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <memory>
+#include <functional>
 #include "../Core/Renderer.h"
 #include "Cell.h"
 
@@ -56,4 +57,8 @@ private:
     void SpawnFood();
 
     void MoveSnake();
+    void CheckFoodCollision();
+    void CheckTailCollision();
+
+    void AddSnakeTail();
 };
