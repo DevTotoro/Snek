@@ -14,12 +14,11 @@ Application::Application()
 
     m_Window = std::make_unique<Window>(
         "Snek",
-        Game::BoardWidth * CELL_SIZE,
-        Game::BoardHeight * CELL_SIZE
+        Game::GAME_WIDTH,
+        Game::GAME_HEIGHT
     );
 
     m_Renderer = std::make_shared<Renderer>(*m_Window);
-    m_Renderer->backgroundColor = Color::WHITE;
 
     m_Game = std::make_unique<Game>(std::shared_ptr<Renderer>(m_Renderer));
 }
@@ -61,6 +60,8 @@ void Application::QuitSDL()
 void Application::Render()
 {
     m_Renderer->DrawBackground();
+
+    m_Game->Draw();
 
     m_Renderer->Render();
 }

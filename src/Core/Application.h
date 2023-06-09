@@ -5,8 +5,6 @@
 #include "Renderer.h"
 #include "../Game/Game.h"
 
-constexpr int CELL_SIZE = 32;
-
 class Application
 {
 public:
