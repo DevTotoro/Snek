@@ -14,17 +14,9 @@ public:
     static constexpr int GAME_WIDTH = BOARD_WIDTH * Cell::CELL_SIZE;
     static constexpr int GAME_HEIGHT = BOARD_HEIGHT * Cell::CELL_SIZE;
 
+    static constexpr int GAME_FPS = 10;
+
 public:
-    Game(std::shared_ptr<Renderer> renderer);
-    ~Game();
-
-    void Update();
-    void Draw() const;
-
-private:
-    using CellPtr = std::shared_ptr<Cell>;
-    using CellRow = std::vector<CellPtr>;
-
     enum Direction
     {
         UP,
@@ -32,6 +24,19 @@ private:
         LEFT,
         RIGHT
     };
+
+public:
+    Game(std::shared_ptr<Renderer> renderer);
+    ~Game();
+
+    void Update();
+    void Draw() const;
+
+    void SetDirection(Direction direction);
+
+private:
+    using CellPtr = std::shared_ptr<Cell>;
+    using CellRow = std::vector<CellPtr>;
 
 private:
     std::shared_ptr<Renderer> m_Renderer = nullptr;

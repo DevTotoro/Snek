@@ -44,6 +44,20 @@ void Game::Draw() const
             m_Renderer->DrawRectangle(cell->GetRectangle());
 }
 
+void Game::SetDirection(Direction direction)
+{
+    if (m_SnakeDirection == Direction::UP && direction == Direction::DOWN)
+        return;
+    if (m_SnakeDirection == Direction::DOWN && direction == Direction::UP)
+        return;
+    if (m_SnakeDirection == Direction::LEFT && direction == Direction::RIGHT)
+        return;
+    if (m_SnakeDirection == Direction::RIGHT && direction == Direction::LEFT)
+        return;
+
+    m_SnakeDirection = direction;
+}
+
 // ==================== PRIVATE ==================== //
 
 void Game::ResetBoard()

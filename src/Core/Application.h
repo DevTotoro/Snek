@@ -16,6 +16,8 @@ public:
 private:
     static Application* s_Instance;
 
+    static bool s_Running;
+
     std::unique_ptr<Window> m_Window = nullptr;
     std::shared_ptr<Renderer> m_Renderer = nullptr;
 
@@ -25,6 +27,7 @@ private:
     static void InitSDL();
     static void QuitSDL();
 
+    void PollEvents();
     void Update();
     void Render();
 };

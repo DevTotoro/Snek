@@ -3,6 +3,8 @@
 
 Application* Application::s_Instance = nullptr;
 
+bool Application::s_Running = true;
+
 // ==================== PUBLIC ==================== //
 
 Application::Application()
@@ -36,10 +38,23 @@ Application::~Application()
 
 void Application::Run()
 {
-    Update();
-    Render();
+    uint64_t frameStart = 0, frameEnd = 0, deltaTime = 0;
 
-    SDL_Delay(3000);
+    while (s_Running)
+    {
+        // Cap FPS
+        frameStart = SDL_GetTicks64();
+        deltaTime = frameStart - frameEnd;
+
+        if (deltaTime > 1000 / Game::GAME_FPS)
+        {
+            frameEnd = frameStart;
+
+            PollEvents();
+            Update();
+            Render();
+        }
+    }
 }
 
 // ==================== PRIVATE ==================== //
@@ -56,6 +71,40 @@ void Application::QuitSDL()
 {
     SDL_Quit();
     CORE_LOG("SDL Quit");
+}
+
+void Application::PollEvents()
+{
+    SDL_Event event;
+    while (SDL_PollEvent(&event) != 0)
+    {
+        switch (event.type)
+        {
+        case SDL_QUIT:
+            s_Running = false;
+            break;
+        case SDL_KEYDOWN:
+            switch (event.key.keysym.sym)
+            {
+            case SDLK_ESCAPE:
+                s_Running = false;
+                break;
+            case SDLK_UP:
+                m_Game->SetDirection(Game::Direction::UP);
+                break;
+            case SDLK_DOWN:
+                m_Game->SetDirection(Game::Direction::DOWN);
+                break;
+            case SDLK_LEFT:
+                m_Game->SetDirection(Game::Direction::LEFT);
+                break;
+            case SDLK_RIGHT:
+                m_Game->SetDirection(Game::Direction::RIGHT);
+                break;
+            }
+            break;
+        }
+    }
 }
 
 void Application::Update()
